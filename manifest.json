@@ -1,0 +1,10 @@
+{
+	"manifest_version": 3,
+	"name": "TDX",
+	"version": "1.0",
+	"description": "Todo extension in your browser",
+	"browser_action": {
+		"default_popup": "index.html"
+	},
+	"permissions": ["storage"]
+}
