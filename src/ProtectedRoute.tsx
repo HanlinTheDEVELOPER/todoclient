@@ -4,6 +4,7 @@ import { Login } from "./pages";
 const ProtectedRoute = () => {
 	const navigate = useNavigate();
 	const userId = localStorage.getItem("token");
+	// const userId = true;
 
 	if (!userId) {
 		navigate("/login");

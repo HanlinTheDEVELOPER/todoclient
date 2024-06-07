@@ -7,6 +7,7 @@
 .auth-section {
 	width: 400px;
 	min-height: 400px;
+	padding-block: 8px;
 	border: 1px solid #ccc;
 	border-radius: 12px;
 	padding-inline: 12px;
@@ -26,6 +27,10 @@
 	background-color: #2424244c;
 	filter: blur(90%);
 	color: #fff;
+}
+
+.auth-form h6 {
+	padding: 12px;
 }
 
 .error-message {

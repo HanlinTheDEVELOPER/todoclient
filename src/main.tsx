@@ -21,7 +21,8 @@ export const authLink = new ApolloLink((operation, forward) => {
 
 	operation.setContext({
 		headers: {
-			authorization: token ? `Bearer ${token}` : "",
+			authorization: token ? `Bearer ${token}` : null,
+			id: localStorage.getItem("userId"),
 		},
 	});
 

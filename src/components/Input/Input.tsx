@@ -5,6 +5,8 @@ type Props = {
 	placeholder?: string;
 	name: string;
 	type: string;
+	onfocus?: string;
+	onblur?: string;
 };
 
 const Input = ({ name, placeholder, type = "text" }: Props) => {

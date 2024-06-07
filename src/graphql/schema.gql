@@ -1,0 +1,10 @@
+input CreateUserInput {
+	name: String!
+	email: String!
+	password: String!
+}
+
+input CreateTodoInput {
+	todo: String!
+	deadline: DateTime!
+}

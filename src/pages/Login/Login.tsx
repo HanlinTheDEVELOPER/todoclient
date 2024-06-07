@@ -1,11 +1,11 @@
 import { useMutation } from "@apollo/client";
 import { ErrorMessage, Form, Formik } from "formik";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { Input, SubmitInput } from "../../components";
+import { Input, SubmitInput } from "../../components/Input";
 import { LogIn } from "../../graphql/mutation";
 import { authLink, client, httpLink } from "../../main";
 import "./login.css";
@@ -27,23 +27,29 @@ const Login = () => {
 	});
 
 	const [isPassword, setIsPassword] = useState(true);
-
-	const [login, { loading, error, data }] = useMutation(LogIn);
+	const navigate = useNavigate();
+	const [login, { loading }] = useMutation(LogIn);
 
 	const handleSubmit = async (value: InitialValues) => {
 		// toast.loading("Logging In");
-		await toast.promise(login({ variables: value }), {
-			loading: "Loading",
-			success: "Got the data",
-			error: "Error when fetching",
-		});
+		toast
+			.promise(login({ variables: value }), {
+				loading: "Logging In...",
+				success: "Successfully Logged In",
+				error: "Error while logging in",
+			})
+			.then((data) => {
+				const token = data.data?.login?.token;
+				const userId = data.data?.login?.userId;
+				const name = data.data?.login?.name;
+				const email = data.data?.login?.email;
 
-		if (data.login) {
-			const token = data.login.token;
-			console.log(token);
-			localStorage.setItem("token", token);
-			client.setLink(authLink.concat(httpLink));
-		}
+				localStorage.setItem("userId", userId);
+				localStorage.setItem("user", JSON.stringify({ name, email }));
+				localStorage.setItem("token", token);
+				client.setLink(authLink.concat(httpLink));
+				return navigate("/");
+			});
 	};
 
 	return (
@@ -73,7 +79,7 @@ const Login = () => {
 						<div className="error-message">
 							<ErrorMessage name="password" className="error-message" />
 						</div>
-						<SubmitInput value={loading ? "Logging..." : "Log In"} />
+						<SubmitInput disabled={loading} value="Log In" />
 						<h6
 							style={{ fontWeight: 400, cursor: "pointer", lineHeight: "2px" }}
 						>
@@ -88,7 +94,7 @@ const Login = () => {
 					</Form>
 				</Formik>
 			</section>
-			{/* <Toaster /> */}
+			<Toaster />
 		</>
 	);
 };

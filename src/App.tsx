@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import { Home, Login, SignUp } from "./pages";
+import { Error, Home, Login, SignUp } from "./pages";
 import ProtectedRoute from "./ProtectedRoute";
 
 const GET_ME = gql`
@@ -22,10 +22,20 @@ function App() {
 		{
 			path: "/",
 			element: <ProtectedRoute />,
+			errorElement: <Error />,
 			children: [
 				{
-					index: true,
+					path: "/",
 					element: <Home />,
+					errorElement: <Error />,
+					children: [
+						{
+							index: true,
+							element: <div>today</div>,
+						},
+						{ path: "/upcoming", element: <div>upcoming</div> },
+						{ path: "/done", element: <div>done</div> },
+					],
 				},
 			],
 		},

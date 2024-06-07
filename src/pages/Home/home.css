@@ -1,0 +1,11 @@
+.home-section {
+	max-width: 500px;
+	margin: auto;
+	height: 100vh;
+	filter: blur(40);
+}
+
+hr {
+	margin-inline: 24px;
+	opacity: 50%;
+}
