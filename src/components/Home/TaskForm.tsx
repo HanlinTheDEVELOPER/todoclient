@@ -3,6 +3,12 @@ import { ErrorMessage, Form, Formik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
 import * as yup from "yup";
 import { CreateTask } from "../../graphql/mutation";
+import {
+	GET_COMPLETED_TASKS,
+	GET_TODAY_TASKS,
+	GET_UPCOMING_TASKS,
+} from "../../graphql/query";
+import { client } from "../../main";
 import { SubmitInput } from "../Input";
 import Input from "../Input/Input";
 import "./style.css";
@@ -18,14 +24,23 @@ const TaskForm = () => {
 		deadline: "",
 	};
 
-	const [createTask, { loading }] = useMutation(CreateTask);
+	const [createTask, { loading }] = useMutation(CreateTask, {
+		refetchQueries: [
+			{ query: GET_COMPLETED_TASKS },
+			{ query: GET_TODAY_TASKS },
+			{ query: GET_UPCOMING_TASKS },
+		],
+	});
 
 	const validationSchema = yup.object({
 		todo: yup.string().required(),
 		deadline: yup.date().required(),
 	});
 
-	const handleSubmit = async (value: any, { resetForm }) => {
+	const handleSubmit = async (
+		value: InitialValues,
+		{ resetForm }: { resetForm: () => void }
+	) => {
 		console.log("value");
 		toast
 			.promise(createTask({ variables: { createTodoInput: value } }), {
@@ -33,8 +48,9 @@ const TaskForm = () => {
 				success: "Task Created Successfully",
 				error: "Error while creating task",
 			})
-			.then(() => {
+			.then(async () => {
 				resetForm();
+				await client.resetStore();
 			});
 	};
 

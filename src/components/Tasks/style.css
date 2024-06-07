@@ -1,0 +1,30 @@
+.tasks-list {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 0px 24px 24px 24px;
+	overflow-y: scroll;
+}
+
+.tasks-list::-webkit-scrollbar {
+	width: 3px;
+}
+
+.task {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	padding: 10px;
+	border-radius: 12px;
+	border: 1px solid #ccc;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#loader {
+	width: 20px;
+	height: 20px;
+	border-color: rgb(255, 255, 255) rgb(23, 178, 51) rgb(255, 255, 255)
+		rgb(255, 255, 255) !important;
+	border-width: 3px;
+}
