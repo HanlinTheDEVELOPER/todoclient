@@ -6,7 +6,7 @@ const Nav = () => {
 		<nav>
 			<NavLink to="/upcoming">Upcoming</NavLink>
 			<NavLink to="/">Today</NavLink>
-			<NavLink to="/done">Done</NavLink>
+			<NavLink to="/expired">Expired</NavLink>
 		</nav>
 	);
 };

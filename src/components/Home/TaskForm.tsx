@@ -4,7 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import * as yup from "yup";
 import { CreateTask } from "../../graphql/mutation";
 import {
-	GET_COMPLETED_TASKS,
+	GET_EXPIRED_TASKS,
 	GET_TODAY_TASKS,
 	GET_UPCOMING_TASKS,
 } from "../../graphql/query";
@@ -26,14 +26,14 @@ const TaskForm = () => {
 
 	const [createTask, { loading }] = useMutation(CreateTask, {
 		refetchQueries: [
-			{ query: GET_COMPLETED_TASKS },
+			{ query: GET_EXPIRED_TASKS },
 			{ query: GET_TODAY_TASKS },
 			{ query: GET_UPCOMING_TASKS },
 		],
 	});
 
 	const validationSchema = yup.object({
-		todo: yup.string().required(),
+		todo: yup.string().required().max(30),
 		deadline: yup.date().required(),
 	});
 
@@ -51,6 +51,9 @@ const TaskForm = () => {
 			.then(async () => {
 				resetForm();
 				await client.resetStore();
+			})
+			.catch((error) => {
+				console.log(error);
 			});
 	};
 

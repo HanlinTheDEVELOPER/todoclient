@@ -21,9 +21,9 @@ export const GET_TODAY_TASKS = gql`
 	}
 `;
 
-export const GET_COMPLETED_TASKS = gql`
-	query getCompletedTasks {
-		getCompletedTasks {
+export const GET_EXPIRED_TASKS = gql`
+	query getExpiredTasks {
+		getExpiredTasks {
 			id
 			todo
 			deadline

@@ -1,6 +1,29 @@
 .greeting-section {
 	padding: 12px 24px;
 	text-align: start;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+}
+
+.greeting-section > button {
+	border-radius: 122px;
+	padding: 4px;
+	position: relative;
+}
+
+.greeting-section > button:hover::after {
+	content: "Log Out";
+	z-index: 10;
+	position: absolute;
+	width: 200%;
+	right: -50%;
+	bottom: -100%;
+	font-size: 12px;
+	background-color: #050505;
+	padding: 8px 4px;
+	border-radius: 8px;
 }
 
 .task-form {

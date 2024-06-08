@@ -1,6 +1,8 @@
+//@ts-nocheck
 import { useSuspenseQuery } from "@apollo/client";
 import { DocumentNode } from "graphql";
 import {
+	ReactNode,
 	RefObject,
 	startTransition,
 	Suspense,
@@ -8,6 +10,8 @@ import {
 	useRef,
 	useState,
 } from "react";
+import { LoaderIcon } from "react-hot-toast";
+import mapArr from "../../lib/reduce";
 import "./style.css";
 import Task from "./Task";
 
@@ -29,7 +33,10 @@ const Tasks = ({ queryKey, dataFieldName }: Props) => {
 	}, []);
 
 	const { data, error } = useSuspenseQuery(queryKey);
-	console.log(data?.[dataFieldName], error);
+
+	if (!data || !data[dataFieldName]) {
+		return <div>No Tasks</div>; // or some fallback UI
+	}
 
 	return (
 		<section
@@ -37,9 +44,23 @@ const Tasks = ({ queryKey, dataFieldName }: Props) => {
 			ref={listRef}
 			style={{ height: `calc(100vh - ${offsetHeight}px)` }}
 		>
-			{data?.[dataFieldName].map((task: Task) => (
-				<Task key={task.id} task={task} />
-			))}
+			{data[dataFieldName].length === 0 && <div>No Tasks</div>}
+			{mapArr(data[dataFieldName]).map(
+				([date, tasks]: [string, Task[]]): ReactNode => (
+					<>
+						{dataFieldName !== "getTodayTasks" && (
+							<div style={{ marginTop: 4, marginBottom: 2 }} key={date}>
+								{date}
+							</div>
+						)}
+						{tasks
+							.sort((a, b) => a.todo.toLowerCase() > b.todo.toLowerCase())
+							.map((task: Task) => (
+								<Task key={task.id} task={task} />
+							))}
+					</>
+				)
+			)}
 		</section>
 	);
 };
@@ -51,5 +72,17 @@ export const SuspenseWrapper = ({
 }: {
 	children: React.ReactNode;
 }) => {
-	return <Suspense>{children}</Suspense>;
+	return (
+		<Suspense
+			fallback={
+				<div
+					style={{ display: "flex", justifyContent: "center", marginTop: 24 }}
+				>
+					<LoaderIcon id="loader" />
+				</div>
+			}
+		>
+			{children}
+		</Suspense>
+	);
 };

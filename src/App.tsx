@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Tasks, { SuspenseWrapper } from "./components/Tasks/Tasks";
 import {
-	GET_COMPLETED_TASKS,
+	GET_EXPIRED_TASKS,
 	GET_TODAY_TASKS,
 	GET_UPCOMING_TASKS,
 } from "./graphql/query";
@@ -23,6 +23,7 @@ function App() {
 					children: [
 						{
 							index: true,
+							errorElement: <Error />,
 							element: (
 								<SuspenseWrapper>
 									<Tasks
@@ -34,6 +35,7 @@ function App() {
 						},
 						{
 							path: "/upcoming",
+							errorElement: <Error />,
 							element: (
 								<SuspenseWrapper>
 									<Tasks
@@ -44,12 +46,13 @@ function App() {
 							),
 						},
 						{
-							path: "/done",
+							path: "/expired",
+							errorElement: <Error />,
 							element: (
 								<SuspenseWrapper>
 									<Tasks
-										queryKey={GET_COMPLETED_TASKS}
-										dataFieldName="getCompletedTasks"
+										queryKey={GET_EXPIRED_TASKS}
+										dataFieldName="getExpiredTasks"
 									/>
 								</SuspenseWrapper>
 							),

@@ -1,5 +1,13 @@
 import { gql } from "@apollo/client";
 
+export const LOGOUT_MUTATION = gql`
+	mutation logout {
+		logout {
+			msg
+		}
+	}
+`;
+
 export const LogIn = gql`
 	mutation login($email: String!, $password: String!) {
 		login(email: $email, password: $password) {
@@ -29,6 +37,25 @@ export const CreateTask = gql`
 			todo
 			deadline
 			status
+		}
+	}
+`;
+
+export const ToggleTaskStatus = gql`
+	mutation toggleTaskStatus($id: String!) {
+		toggleTaskStatus(id: $id) {
+			id
+			todo
+			deadline
+			status
+		}
+	}
+`;
+
+export const DeleteTask = gql`
+	mutation deleteTask($id: String!) {
+		deleteTask(id: $id) {
+			todo
 		}
 	}
 `;

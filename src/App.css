@@ -42,6 +42,14 @@
 	padding-left: 12px;
 }
 
+#loader {
+	width: 22px;
+	height: 22px;
+	border-color: rgb(255, 255, 255) rgb(23, 178, 51) rgb(255, 255, 255)
+		rgb(255, 255, 255) !important;
+	border-width: 3px;
+}
+
 @keyframes logo-spin {
 	from {
 		transform: rotate(0deg);
