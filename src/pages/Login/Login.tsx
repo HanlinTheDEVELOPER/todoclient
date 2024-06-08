@@ -80,11 +80,17 @@ const Login = () => {
 							<ErrorMessage name="password" className="error-message" />
 						</div>
 						<SubmitInput disabled={loading} value="Log In" />
-						<h6
-							style={{ fontWeight: 400, cursor: "pointer", lineHeight: "2px" }}
-						>
-							Forget Password?
-						</h6>
+						<Link to="/forget-password">
+							<h6
+								style={{
+									fontWeight: 400,
+									cursor: "pointer",
+									lineHeight: "2px",
+								}}
+							>
+								Forget Password?
+							</h6>
+						</Link>
 						<h6
 							style={{ fontWeight: 400, cursor: "pointer", lineHeight: "2px" }}
 						>

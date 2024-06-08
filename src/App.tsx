@@ -6,7 +6,14 @@ import {
 	GET_TODAY_TASKS,
 	GET_UPCOMING_TASKS,
 } from "./graphql/query";
-import { Error, Home, Login, SignUp } from "./pages";
+import {
+	Error,
+	ForgetPassword,
+	Home,
+	Login,
+	ResetPassword,
+	SignUp,
+} from "./pages";
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
@@ -63,6 +70,8 @@ function App() {
 		},
 		{ path: "/login", element: <Login /> },
 		{ path: "/signup", element: <SignUp /> },
+		{ path: "/forget-password", element: <ForgetPassword /> },
+		{ path: "/reset-password/:id", element: <ResetPassword /> },
 	]);
 
 	return <RouterProvider router={router} />;

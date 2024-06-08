@@ -1,13 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const LOGOUT_MUTATION = gql`
-	mutation logout {
-		logout {
-			msg
-		}
-	}
-`;
-
 export const LogIn = gql`
 	mutation login($email: String!, $password: String!) {
 		login(email: $email, password: $password) {
@@ -26,6 +18,22 @@ export const Signup = gql`
 			name
 			email
 			token
+		}
+	}
+`;
+
+export const LOGOUT_MUTATION = gql`
+	mutation logout {
+		logout {
+			msg
+		}
+	}
+`;
+
+export const FORGET_PASSWORD = gql`
+	mutation forgetPassword($email: String!) {
+		forgetPassword(email: $email) {
+			msg
 		}
 	}
 `;

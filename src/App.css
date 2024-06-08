@@ -23,6 +23,12 @@
 	letter-spacing: 0.4rem;
 }
 
+.form-parent {
+	border: 1px solid #ccc;
+	border-radius: 12px;
+	padding: 24px;
+}
+
 .main-bg {
 	background-color: #2424244c;
 	filter: blur(90%);
