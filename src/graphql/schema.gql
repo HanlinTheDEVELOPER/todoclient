@@ -8,3 +8,9 @@ input CreateTodoInput {
 	todo: String!
 	deadline: DateTime!
 }
+
+input ResetPasswordInput {
+	email: String
+	token: String
+	password: String
+}

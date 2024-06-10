@@ -38,6 +38,14 @@ export const FORGET_PASSWORD = gql`
 	}
 `;
 
+export const RESET_PASSWORD = gql`
+	mutation resetPassword($resetPasswordInput: ResetPasswordInput!) {
+		resetPassword(resetPasswordInput: $resetPasswordInput) {
+			msg
+		}
+	}
+`;
+
 export const CreateTask = gql`
 	mutation createTask($createTodoInput: CreateTodoInput!) {
 		createTask(createTodoInput: $createTodoInput) {
